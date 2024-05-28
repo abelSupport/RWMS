@@ -105,7 +105,14 @@ export class ModuledetailComponent {
     private userService: UserService,
     public matDialog: MatDialog
   ) {
-    this.dataEntryService.getDataEntries().subscribe((res) => {
+
+    this.route.paramMap.subscribe((params) => {
+      let id = params.get('id');
+      this.locID = id;
+      debugger
+    })
+
+    this.dataEntryService.getDataEntriesbyLocationID(this.locID).subscribe((res) => {
       debugger;
       this.dataEntryDataList = res.data;
       this.dataEntryDataList.forEach((item) => {

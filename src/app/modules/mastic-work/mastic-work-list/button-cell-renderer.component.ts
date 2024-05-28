@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
       color="light"
       cButton
       (click)="btnClickedEditHandler()"
-      *ngIf="edit"
+      *ngIf="edit || isDataEntry"
     >
       <svg cIcon name="cilNoteAdd"></svg>
       Edit
@@ -39,7 +39,9 @@ import { environment } from 'src/environments/environment';
 export class BtnCellRenderer implements ICellRendererAngularComp {
   private params: any;
   edit: boolean = false;
+  isDataEntry:boolean=false
   userRole = sessionStorage.getItem('UserRole');
+  dataEntry = sessionStorage.getItem('isDataEntry');
   
   beforeImagePath: string;
   afterImagePath: string;
@@ -49,6 +51,10 @@ export class BtnCellRenderer implements ICellRendererAngularComp {
   ) {}
   agInit(params: any): void {
     this.params = params;
+
+    if(this.dataEntry==='Yes'){
+      this.isDataEntry=true
+    }
 
     if (this.userRole === 'Data Owner') {
       this.edit = true;

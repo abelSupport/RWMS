@@ -45,6 +45,11 @@ export class DataentryService {
     return this._httpClient.get<IDataEntryModelResponce>(this.baseURL)
       .pipe(catchError(this.handleError));
   }
+
+  getDataEntriesbyLocationID(locationId:any): Observable<IDataEntryModelResponce> {
+    return this._httpClient.get<IDataEntryModelResponce>(this.baseURL+'dataentrybylocid/'+locationId)
+      .pipe(catchError(this.handleError));
+  }
   
   getDataEntryGroup(data:any): Observable<IDataEntryGroupModelResponce> {  
     return this._httpClient.post<IDataEntryGroupModelResponce>(this.baseURL + "dataentrygroup/", JSON.stringify(data), {

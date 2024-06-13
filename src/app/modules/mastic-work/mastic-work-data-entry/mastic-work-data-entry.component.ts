@@ -371,6 +371,7 @@ export class MasticWorkDataEntryComponent {
           createdBy: sessionStorage.getItem('FullName'),
         };
         console.log(objMasticWork);
+        debugger;
         this.masticworkService
           .addMasticWork(objMasticWork)
           .subscribe((result) => {

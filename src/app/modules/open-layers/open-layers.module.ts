@@ -33,13 +33,15 @@ import {
 } from '@coreui/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MapFeatureComponent } from './map-feature/map-feature.component';
+import { PlantexVtsFeatureComponent } from './plantex-vts-feature/plantex-vts-feature.component';
 
 @NgModule({
   declarations: [
     DisplayOlMapComponent,
     DigitizeRoadComponent,
     AddLineStringComponent,
-    MapFeatureComponent
+    MapFeatureComponent,
+    PlantexVtsFeatureComponent
   ],
   exports:[
     DisplayOlMapComponent

@@ -55,7 +55,6 @@ export class UserloginComponent {
         this.dbCallingService.GenerateOTP(obj).subscribe(
           (res) => {
             if (res.servicesesponse === 1) {
-              debugger;
               this.otpRes = res.servicesesponse;
               this.UOTP = res.otp;
             } else {
@@ -102,7 +101,7 @@ export class UserloginComponent {
       sessionStorage.setItem('isDataEntry', String(this.userModel.isDataEntry));
       sessionStorage.setItem('UserWard', String(this.userModel.wards[0][0].wardName));
       debugger;
-      if(String(this.userModel.roleName)==="Data Viewer" || String(this.userModel.roleName)==="Executive Engineer"){
+      if(String(this.userModel.roleName)==="Data Viewer" || String(this.userModel.roleName)==="Executive Engineer" || String(this.userModel.roleName)==="Assistant Engineer"){
         sessionStorage.setItem('UserWard', String(this.userModel.wards.map(m=>m[0].wardName)));
       }
       sessionStorage.setItem('isDataEntry', String(this.userModel.isDataEntry));

@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('jwttoken', String(result.token));
         sessionStorage.setItem('UserWard', String(result.data[0].wards[0][0].wardName));
         debugger;
-        if(String(result.data[0].roleName)==="Data Viewer" || String(result.data[0].roleName)==="Executive Engineer"){
+        if(String(result.data[0].roleName)==="Data Viewer" || String(result.data[0].roleName)==="Executive Engineer" || String(result.data[0].roleName)==="Assistant Engineer"){
           sessionStorage.setItem('UserWard', String(result.data[0].wards.map(m=>m[0].wardName)));
         }
         sessionStorage.setItem('isDataEntry', String(result.data[0].isDataEntry));

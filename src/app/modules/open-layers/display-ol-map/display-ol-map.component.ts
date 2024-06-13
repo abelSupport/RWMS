@@ -9,7 +9,7 @@ import VectorSource from 'ol/source/Vector';
 import { Draw, Modify, Snap } from 'ol/interaction';
 import { LineString } from 'ol/geom';
 import { Coordinate } from 'ol/coordinate';
-import { Circle as CircleStyle, Fill, Stroke, Style, Text } from 'ol/style';
+import { Circle as CircleStyle, Fill, Icon, Stroke, Style, Text } from 'ol/style';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MapFeatureComponent } from '../map-feature/map-feature.component';
 import { ActivatedRoute } from '@angular/router';
@@ -17,6 +17,9 @@ import { LocationService } from 'src/app/core/services/location.service';
 import { transform } from 'ol/proj';
 import { GeoJSON } from 'ol/format';
 import { environment } from 'src/environments/environment';
+import { PlantexVtsFeatureComponent } from '../plantex-vts-feature/plantex-vts-feature.component';
+import { defaults as defaultControls } from 'ol/control';
+import FullScreen from 'ol/control/FullScreen';
 
 @Component({
   selector: 'app-display-ol-map',
@@ -24,8 +27,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./display-ol-map.component.scss'],
 })
 export class DisplayOlMapComponent {
-  @ViewChild('map', { static: true }) mapElement: ElementRef;
-  map: Map;
+  // @ViewChild('map', { static: true }) mapElement: ElementRef;
+  map!: Map;
   center: Coordinate = [8111403.258440978, 2166113.1415149523];
   zoom: number = 11;
   locationId: string;
@@ -40,6 +43,9 @@ export class DisplayOlMapComponent {
   contractorName: any;
   status: any;
   length: any;
+  platexVTS: any;
+  vectorLayer: VectorLayer<any>;
+  platexVTSLayer: VectorLayer<any>;
   constructor(
     public matDialog: MatDialog,
     private route: ActivatedRoute,
@@ -58,6 +64,11 @@ export class DisplayOlMapComponent {
         url: this.API_URL + 'geo/getwardlayer',
         format: new GeoJSON({ geometryName: 'wardfeaturelayer' }),
       });
+
+      this.platexVTS = new VectorSource({
+        url:this.API_URL + 'vts/getplantexvtslayer',
+        format: new GeoJSON({ geometryName: 'PlantexVTS' }),
+      })
     });
     this.initializeMap();
   }
@@ -67,7 +78,7 @@ export class DisplayOlMapComponent {
       source: new OSM(),
     });
     const vectorSource = new VectorSource();
-    const vectorLayer = new VectorLayer({
+    this.vectorLayer = new VectorLayer({
       source: this.sourceL,
 
       style: (feature) => {
@@ -104,16 +115,6 @@ export class DisplayOlMapComponent {
         });
       },
 
-      // style: new Style({
-      //   fill: new Fill({
-      //     color: 'rgba(255, 255, 255, 0.2)',
-      //   }),
-      //   stroke: new Stroke({
-      //     color: 'blue',
-      //     width: 4,
-      //   }),
-
-      // }),
     });
 
     const wardLayer = new VectorLayer({
@@ -148,13 +149,37 @@ export class DisplayOlMapComponent {
       },
     });
 
+    this.platexVTSLayer = new VectorLayer({
+      source: this.platexVTS,
+      style:new Style({
+        image: new Icon({
+          src: 'assets/images/service-truck-icon.png', // Path to your custom icon image
+          scale: 0.02, // Adjust the scale as needed
+        }),
+      })
+      // style:new Style({
+      //   image: new CircleStyle({
+      //     radius: 10,
+      //     fill: new Fill({
+      //       color: '#FFFFFF',
+      //     }),
+      //     stroke: new Stroke({
+      //       color: '#0000FF',
+      //       width: 2,
+      //     }),
+      //   }),
+      // })
+    });
+
     this.map = new Map({
-      target: this.mapElement.nativeElement,
-      layers: [raster, wardLayer, vectorLayer],
+      target: 'map',      
+      layers: [raster, wardLayer,this.platexVTSLayer,this.vectorLayer],
       view: new View({
         center: this.center,
         zoom: this.zoom,
       }),
+      controls: defaultControls().extend([new FullScreen()]),
+
     });
 
     // Listen to the drawend event
@@ -163,6 +188,8 @@ export class DisplayOlMapComponent {
       let fcParams = {};
       const coordinate = e.coordinate;
       this.map.forEachFeatureAtPixel(e.pixel, (feature, layer) => {
+        const geometryName = feature['geometryName_'];
+        console.log(geometryName)
         if (feature.getGeometry()?.getType() === 'MultiLineString') {
           const data = feature.getProperties();
           this.layerdata = data;
@@ -176,6 +203,11 @@ export class DisplayOlMapComponent {
           this.openNewComponent(data);
           // content.innerHTML = '<p>Location Name:</p><code>' + ward + '</code>';
           // overlay.setPosition(coordinate);
+        }
+        if(geometryName==="PlantexVTS"){
+          const data = feature.getProperties();
+          this.openPVTSNewComponent(data);
+
         }
       });
     });
@@ -205,6 +237,34 @@ export class DisplayOlMapComponent {
     this.locationService.getDataEntrySearchParams(obj);
     dialogConfig.panelClass = 'rounded-dialog';
     this.matDialog.open(MapFeatureComponent, dialogConfig);
+  }
+
+  openPVTSNewComponent(feature) {
+    debugger;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.id = 'modal-component';
+    dialogConfig.height = '200px';
+    dialogConfig.width = '400px';
+    dialogConfig.position = {
+      top: '250px',
+    };
+    let obj = {
+      feature:feature
+    };
+    this.locationService.getDataEntrySearchParams(obj);
+    dialogConfig.panelClass = 'rounded-dialog';
+    this.matDialog.open(PlantexVtsFeatureComponent, dialogConfig);
+  }
+
+  toggleWardLayerVisibility(): void {
+    const visibility = this.vectorLayer.getVisible();
+    this.vectorLayer.setVisible(!visibility);
+  }
+
+  toggleCatchmentLayerVisibility(): void {
+    const visibility = this.platexVTSLayer.getVisible();
+    this.platexVTSLayer.setVisible(!visibility);
   }
 
 }

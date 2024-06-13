@@ -81,9 +81,9 @@ export class MasticWorkListComponent implements OnInit {
       { headerName: 'Length (m)', field: 'length' },
       { headerName: 'Width (m)', field: 'width' },
       { headerName: 'cookerRegistrationNo', field: 'cookerRegistrationNo' },
-      { headerName: 'Mastic Quantity (sq. m.)', field: 'masticQuantity' },
-      { headerName: 'DBM Quantity (sq. m.)', field: 'dbmQuantity' },
-      { headerName: 'WMM Quantity (sq. m.)', field: 'wmmQuantity' },
+      { headerName: 'Mastic Area Attended (sq. m.)', field: 'masticQuantity' },
+      { headerName: 'DBM Area Attended (sq. m.)', field: 'dbmQuantity' },
+      { headerName: 'WMM Area Attended (sq. m.)', field: 'wmmQuantity' },
       { headerName: 'Cost(Rs.)', field: 'cost' },
       {
         headerName: 'Date',
@@ -156,7 +156,8 @@ export class MasticWorkListComponent implements OnInit {
             if (this.userRole === 'Data Owner') {
               this.masticWorkList = result.data;
               console.log(this.masticWorkList);
-              
+              console.log(this.masticWorkList.map(m=>m.subEngineerName));
+
               this.rowData = this.masticWorkList;
             } else if (this.userRole === 'Data Viewer' || this.userRole === 'Executive Engineer' || this.userRole === 'Assistant Engineer') {
               this.masticWorkList = result.data;
@@ -172,9 +173,7 @@ export class MasticWorkListComponent implements OnInit {
               let ward = sessionStorage.getItem('UserWard');
               this.masticWorkList = result.data.filter(
                 (f) => f.wardName.wardName === ward
-              );
-              debugger;
-              console.log(this.masticWorkList);             
+              );                        
               this.masticWorkList=this.masticWorkList.filter(f=>f.subEngineerName._id===this.userID)
               this.rowData = this.masticWorkList;
             }
@@ -205,7 +204,6 @@ export class MasticWorkListComponent implements OnInit {
   formatDateForInput(date: Date): string {
     if(date){
       const isoString = date.toString();
-
       return isoString.slice(0, 16); // Truncate milliseconds and timezone
     }else{
       return null
@@ -237,6 +235,8 @@ export class MasticWorkListComponent implements OnInit {
         masticQuantity: m.masticQuantity,
         dbmQuantity: m.dbmQuantity,
         wmmQuantity: m.wmmQuantity,
+        beforeImagePath:m.beforeImagePath,
+        afterImagePath:m.afterImagePath,
         createdOn: m.createdOn,
         createdBy: m.createdBy,
         modifiedOn: m.modifiedOn,

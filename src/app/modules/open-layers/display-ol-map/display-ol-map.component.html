@@ -5,44 +5,22 @@
       <c-card-body>
         <c-row>
           <c-col [sm]="12">
-            <div
-              #map
-             
-              style="width: 100%; height: 500px"
-            ></div>
-<!-- 
-            <div
-            #map
-            [cTooltip]="tooltipContent"
-            (click)="showTooltip()"
-            style="width: 100%; height: 500px"
-          ></div> -->
+            <div id="map-container" style="position: relative; width: 100%; height: 500px;">
+              <div id="map" class="map"></div>
+              <div id="toggle-ward-layer" style="position: absolute; top: 115px; left: 35px; z-index: 1000;">
+                <c-form-check [switch]="true">
+                  <input cFormCheckInput type="checkbox" checked (click)="toggleWardLayerVisibility()" />
+                  <label cFormCheckLabel>Mega CC Roads</label>
+                </c-form-check>
+              </div>
+              <div id="toggle-ward-layer" style="position: absolute; top: 145px; left: 35px; z-index: 1000;">
+                <c-form-check [switch]="true">
+                  <input cFormCheckInput type="checkbox" checked (click)="toggleCatchmentLayerVisibility()" />
+                  <label cFormCheckLabel>Cooker Vehicles</label>
+                </c-form-check>
+              </div>
+            </div>
           </c-col>
-          <!-- <c-col>
-            <h6><b>Road Name :</b> {{ roadName }}</h6>
-            <p>Road Length : {{ length }} (m)</p>
-            <p>Ward Name : {{ roadWard }}</p>
-            <p>Zone Name : {{ roadZone }}</p>
-            <p>Contractor Name : {{ contractorName }}</p>
-            <p>Road Status : {{ status }}</p>
-
-            <button
-              [cTooltip]="tooltipContent"
-              cButton
-              cTooltipPlacement="right"
-              cTooltipTrigger="click"
-              class="me-1"
-              color="secondary"
-            >
-              Template Tooltip
-              <ng-template #tooltipContent>
-                Vivamus <span cTextColor="success">sagittis</span> lacus vel
-                augue laoreet rutrum <i cTextColor="warning">faucibus</i>.{{
-                  roadName
-                }}
-              </ng-template>
-            </button>
-          </c-col> -->
         </c-row>
       </c-card-body>
     </c-card>

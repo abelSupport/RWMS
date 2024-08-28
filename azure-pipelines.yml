@@ -13,7 +13,15 @@ steps:
 
 
 - script: |
-    npm install -g @angular/cli
     npm install
-    ng build --prod
-  displayName: 'npm install and build'
+  displayName: 'Install Dependencies'
+
+- script: |
+    npm run build --prod
+  displayName: 'Build Angular App'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(System.DefaultWorkingDirectory)/dist'
+    artifactName: 'angular-build'
+    publishLocation: 'Container'

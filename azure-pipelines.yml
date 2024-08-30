@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  name: 'Default'
+  name: 'RWMS Agent pool'
 
 steps:
 

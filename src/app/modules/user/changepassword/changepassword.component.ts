@@ -7,7 +7,6 @@ import { RoleService } from 'src/app/core/services/role.service';
 import { UserService } from 'src/app/core/services/user.service';
 import Swal from 'sweetalert2';
 
-
 @Component({
   selector: 'app-changepassword',
   templateUrl: './changepassword.component.html',
@@ -27,7 +26,7 @@ export class ChangepasswordComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private roleService: RoleService,
+    private roleService: RoleService
   ) {
     this.roleService.getRoles().subscribe(
       (result) => {
@@ -63,41 +62,36 @@ export class ChangepasswordComponent implements OnInit {
       if (id) {
         this.pageTitle = 'Edit User';
 
-        
-        this.userService.getUserById(id).subscribe((result) => {
-          if(result != null){
-            if (result.status === 200) {
-              this.userModel = result.data[0];
-              console.log(this.userModel);
-              this.idForChangePassword = id;
+        this.userService.getUserById(id).subscribe(
+          (result) => {
+            if (result != null) {
+              if (result.status === 200) {
+                this.userModel = result.data[0];
+                console.log(this.userModel);
+                this.idForChangePassword = id;
 
-              
-
-              this.form.patchValue({
-                userName: this.userModel.userName,
-                // password: this.userModel.password,
-                createdBy: sessionStorage.getItem('FullName'),
-                createdOn: new Date(),
-                modifiedBy: sessionStorage.getItem('FullName'),
-                modifiedOn: new Date(),
+                this.form.patchValue({
+                  userName: this.userModel.userName,
+                  // password: this.userModel.password,
+                  createdBy: sessionStorage.getItem('FullName'),
+                  createdOn: new Date(),
+                  modifiedBy: sessionStorage.getItem('FullName'),
+                  modifiedOn: new Date(),
+                });
+              }
+            } else {
+              Swal.fire({
+                title: 'Seesion Expired',
+                text: 'Login Again to Continue',
+                icon: 'warning',
+                confirmButtonText: 'Ok',
+              }).then((result) => {
+                if (result.value) {
+                  debugger;
+                  this.logOut();
+                }
               });
             }
-          }
-          else {
-            Swal.fire({
-              title: 'Seesion Expired',
-              text: 'Login Again to Continue',
-              icon: 'warning',
-              confirmButtonText: 'Ok',
-            }).then((result) => {
-              if (result.value) {
-                debugger;
-                this.logOut();
-              }
-            });
-  
-          }
-            
           },
           (err) => {
             // this.notificationService.warn(':: ' + err);
@@ -107,13 +101,10 @@ export class ChangepasswordComponent implements OnInit {
     });
   }
 
-
   onSubmit() {
-    
     let selectedWardNames: any = [];
-    this.userModel.wards.forEach(w =>{
-      
-      selectedWardNames.push(w[0].wardName)
+    this.userModel.wards.forEach((w) => {
+      selectedWardNames.push(w[0].wardName);
     });
     let wdata = this.modelWard.filter((w) =>
       selectedWardNames.includes(w.wardName)
@@ -125,12 +116,10 @@ export class ChangepasswordComponent implements OnInit {
     }));
     console.log(resultDatta);
 
-    
     if (this.form.invalid) {
       return; // Exit the function if the form is invalid
     } else {
       if (this.newPwd == this.confirmPwd) {
-
         if (this.idForChangePassword) {
           console.log('update call');
           this.userModel = {
@@ -147,50 +136,53 @@ export class ChangepasswordComponent implements OnInit {
             locations: [],
             wards: resultDatta,
             roleName: this.userModel.roleName,
-            isDataEntry:this.userModel.isDataEntry,
+            isDataEntry: this.userModel.isDataEntry,
             createdBy: sessionStorage.getItem('FullName'),
             createdOn: new Date(),
             modifiedBy: sessionStorage.getItem('FullName'),
             modifiedOn: new Date(),
           };
-          
-          this.userService.updateUser(this.idForChangePassword, this.userModel).subscribe((result) => {
-            if(result != null){
-              if (result.status === 201) {
-                Swal.fire({
-                  text: 'Password Changed, Login with new Password!',
-                  icon: 'success',
-                });                 
-                 this.logOut();
-              }
-            }
-            else {
-              Swal.fire({
-                title: 'Seesion Expired',
-                text: 'Login Again to Continue',
-                icon: 'warning',
-                confirmButtonText: 'Ok',
-              }).then((result) => {
-                if (result.value) {
-                  debugger;
-                  this.logOut();
-                }
-              });
-    
-            }
 
-            },
-            (err) => {
-              // this.notificationService.warn(':: ' + err);
-            }
-          );
+          this.userService
+            .updateUser(this.idForChangePassword, this.userModel)
+            .subscribe(
+              (result) => {
+                if (result != null) {
+                  if (result.status === 201) {
+                    Swal.fire({
+                      text: 'Password Changed, Login with new Password!',
+                      icon: 'success',
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        this.logOut();
+                      }
+                    });
+                    // this.logOut();
+                  }
+                } else {
+                  Swal.fire({
+                    title: 'Seesion Expired',
+                    text: 'Login Again to Continue',
+                    icon: 'warning',
+                    confirmButtonText: 'Ok',
+                  }).then((result) => {
+                    if (result.value) {
+                      debugger;
+                      this.logOut();
+                    }
+                  });
+                }
+              },
+              (err) => {
+                // this.notificationService.warn(':: ' + err);
+              }
+            );
         }
       } else {
-       
         Swal.fire({
           text: 'Password & Confirm Password did not Match!',
           icon: 'error',
-        }); 
+        });
       }
     }
   }
@@ -198,19 +190,17 @@ export class ChangepasswordComponent implements OnInit {
   newPwd: any;
   confirmPwd: any;
   onPasswordChange(e) {
-    
     this.newPwd = e.target.value;
   }
 
-  logOut(){
-    this.router.navigate(["/login/"])
+  logOut() {
+    this.router.navigate(['/login/']);
     sessionStorage.clear();
     window.location.reload();
   }
 
   passwordMatch = false;
   onConfirmPasswordChange(e) {
-    
     this.confirmPwd = e.target.value;
     if (this.newPwd == this.confirmPwd) {
       this.passwordMatch = true;

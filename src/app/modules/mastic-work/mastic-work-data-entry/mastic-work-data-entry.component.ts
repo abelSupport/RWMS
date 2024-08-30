@@ -3,12 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
 import * as moment from 'moment';
-import {
-  IMasticWorkResponse,
-  MasticWorkModel,
-} from 'src/app/core/models/IMasticWork';
-import { ModuleModel } from 'src/app/core/models/IModule';
-import { UnitModel } from 'src/app/core/models/IUnit';
+import { IMasticWorkResponse, MasticWorkModel} from 'src/app/core/models/IMasticWork';
 import { wardModel } from 'src/app/core/models/IWard';
 import { MasticworkService } from 'src/app/core/services/masticwork.service';
 import { ModuleService } from 'src/app/core/services/module.service';
@@ -19,11 +14,12 @@ import { PandmattributegroupService } from 'src/app/core/services/pandmattribute
 import Swal from 'sweetalert2';
 import {} from '@angular/common';
 import { environment } from 'src/environments/environment';
-import * as XLSX from 'xlsx';
 import { Observable, ReplaySubject } from 'rxjs';
 import { LocationModel } from 'src/app/core/models/ILocation';
+
+import * as XLSX from 'xlsx';
 type AOA = any[][];
-locId: String = null;
+
 @Component({
   selector: 'app-mastic-work-data-entry',
   templateUrl: './mastic-work-data-entry.component.html',
@@ -40,7 +36,7 @@ export class MasticWorkDataEntryComponent {
   objMasticWork: MasticWorkModel;
   selectedFile: File = null;
   showRoadNameInput: boolean = false;
-  pageTitle = 'Create Mastic Work';
+  pageTitle = 'Create bad Patch Work';
   constructor(
     private ngZone: NgZone,
     private route: ActivatedRoute,
@@ -164,7 +160,7 @@ export class MasticWorkDataEntryComponent {
       let id = param.get('id');
       this.locId = id;
       if (id) {
-        this.pageTitle = 'Edit Mastic Work';
+        this.pageTitle = 'Edit Bad Patch Work';
         this.masticworkService.getLocationById(id).subscribe(
           (result) => {
             if (result != null) {
@@ -185,7 +181,7 @@ export class MasticWorkDataEntryComponent {
                   environment.imageUrl + result.data[0].beforeImagePath;
                 this.afterImagePath =
                   environment.imageUrl + result.data[0].afterImagePath;
-        
+
                 this.form.patchValue({
                   workCode: result.data[0].workCode,
                   locationName: result.data[0].locationName,
@@ -274,6 +270,36 @@ export class MasticWorkDataEntryComponent {
     if (this.locId) {
       const current: Date = new Date();
       let modifiedOn = this.formatDate(current);
+      // let objMasticWork = {
+      //   _id: '0',
+      //   workCode: this.form.value.workCode,
+      //   locationName:
+      //     this.form.value.userSelectionRadio == 'two'
+      //       ? this.form.value.locationName
+      //       : this.masticRoadsList.filter(
+      //           (f) => f._id == this.form.value.location
+      //         )[0].locationName,
+      //   wardName: this.form.value.wardName,
+      //   zoneName: this.form.value.zoneName,
+      //   description: this.form.value.description,
+      //   contractorName: this.form.value.contractorName,
+      //   length: this.form.value.length,
+      //   width: this.form.value.width,
+      //   dataDate: this.form.value.dataDate,
+      //   cost: this.form.value.cost,
+      //   cookerRegistrationNo: this.form.value.cookerRegistrationNo,
+      //   masticQuantity: this.form.value.masticQuantity,
+      //   dbmQuantity: this.form.value.dbmQuantity,
+      //   wmmQuantity: this.form.value.wmmQuantity,
+      //   coordinates: this.coordinates,
+      //   remarks: this.form.value.remarks,
+      //   subEngineerName: sessionStorage.getItem('UserId'),
+      //   beforeImage: this.beforeImageBase64,
+      //   beforeImageFileName: this.beforeImageFileName,
+      //   afterImage: this.afterImageBase64,
+      //   afterImageFileName: this.afterImageFileName,
+      //   modifiedBy: sessionStorage.getItem('FullName'),
+      // };
       let objMasticWork = {
         _id: '0',
         workCode: this.form.value.workCode,
@@ -316,7 +342,7 @@ export class MasticWorkDataEntryComponent {
                   icon: 'success',
                 });
                 this.router.navigate(['location/masticworklist']);
-              }else{
+              } else {
                 Swal.fire({
                   text: 'Error Saving Data',
                   icon: 'error',
@@ -339,7 +365,6 @@ export class MasticWorkDataEntryComponent {
         );
     } else {
       {
-  
         let objMasticWork = {
           _id: '0',
           workCode: this.form.value.workCode,
@@ -369,6 +394,9 @@ export class MasticWorkDataEntryComponent {
           afterImage: this.afterImageBase64,
           afterImageFileName: this.afterImageFileName,
           createdBy: sessionStorage.getItem('FullName'),
+          modifiedBy: sessionStorage.getItem('FullName'),
+          modifiedOn:new Date()
+
         };
         console.log(objMasticWork);
         debugger;
@@ -455,11 +483,185 @@ export class MasticWorkDataEntryComponent {
     });
   }
 
+
+  data: AOA = [
+    [1, 2],
+    [3, 4],
+  ];
+  upload = false;
+  // uploadListener(event: any): void {
+    
+  //   const target: DataTransfer = <DataTransfer>event.target;
+  //   if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+  //   const reader: FileReader = new FileReader();
+
+  //   reader.onload = (e: any) => {
+  //     /* read workbook */
+  //     const bstr: string = e.target.result;
+  //     const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+
+  //     /* grab first sheet */
+  //     const wsname: string = wb.SheetNames[0];
+  //     const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+  //     debugger;
+  //     /* save data */
+  //     this.data = <AOA>XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
+  //     debugger;
+  //     console.log('Excel Data' + this.data);
+  //     if(this.data) {
+  //       debugger;
+  //       this.upload = true;
+  //     }
+  //   };
+  //   reader.readAsBinaryString(target.files[0]);
+  // }
+
+
+  uploadListener(event: any): void {
+    debugger;
+    const target: DataTransfer = <DataTransfer>event.target;
+    if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+    const reader: FileReader = new FileReader();
+    debugger;
+    reader.onload = (e: any) => {
+      /* read workbook */
+      const bstr: string = e.target.result;
+      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+      debugger;
+      /* grab first sheet */
+      const wsname: string = wb.SheetNames[0];
+      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+
+      /* save data */
+      this.data = <AOA>XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
+      debugger;
+      console.log('Excel Data' + this.data);
+      if (this.data) {
+        this.upload = true;
+      }
+    };
+    reader.readAsBinaryString(target.files[0]);
+    //this.UploadClick();
+  }
+
+
+
   UploadClick() {
-    // this.convertFile(this.selectedFile).subscribe(base64 => {
-    //   this.afterImageBase64 = base64;
-    //   console.log(this.afterImageBase64);
-    // });
+    this.getDataRecordsArray();
+  }
+
+  dataEntryModelUpload: any;
+  startDate_info: Date;
+  endDate_info: Date;
+  dataDate;
+  modifiedOn;
+  async getDataRecordsArray() {
+    debugger;
+    for (let i = 1; i < this.data.length; i = i + 1) {
+      let j = i + 1;
+      if (this.data[i].length) {
+        if (this.data[i][1] != '') {
+          var ward: any = this.wardList.filter(
+            (w) => w.wardName === this.data[i][1]
+          );
+          if (this.data[i][12] === '') {
+            this.dataDate = null;
+          } else {
+            var startutc_days = Math.floor(this.data[i][12] - 25569);
+            var startutc_value = startutc_days * 86400;
+            this.startDate_info = new Date(startutc_value * 1000);
+            var startdate1 = new Date(
+              this.startDate_info.getFullYear(),
+              this.startDate_info.getMonth(),
+              this.startDate_info.getDate()
+            );
+            this.dataDate = moment(startdate1).format('YYYY-MM-DD');
+          }
+
+          if (this.data[i][15] === '') {
+            this.modifiedOn = null;
+          } else {
+            var endutc_days = Math.floor(this.data[i][15] - 25569);
+            var endutc_value = endutc_days * 86400;
+            this.endDate_info = new Date(endutc_value * 1000);
+            var enddate1 = new Date(
+              this.endDate_info.getFullYear(),
+              this.endDate_info.getMonth(),
+              this.endDate_info.getDate()
+            );
+            this.modifiedOn = moment(enddate1).format('YYYY-MM-DD');
+          }
+          debugger;
+          let attr1 = {
+            locationName: this.data[i][0],
+            wardName: ward[0]._id,
+            zoneName: ward[0].zoneName,
+            workCode: this.data[i][3],
+            description: this.data[i][14],
+            contractorName: this.data[i][4],
+            length: this.data[i][5],
+            width: this.data[i][6],
+            cookerRegistrationNo: this.data[i][7],
+            masticQuantity: this.data[i][8],
+            dbmQuantity: this.data[i][9],
+            wmmQuantity: this.data[i][10],
+            cost: this.data[i][11],
+            dataDate: this.dataDate,
+            beforeImage: null,
+            beforeImageFileName: null,
+            afterImage: null,
+            afterImageFileName: null,
+            coordinates: null,
+            remarks: this.data[i][13],
+            subEngineerName: sessionStorage.getItem('UserId'),
+            createdBy: sessionStorage.getItem('FullName'),
+          };
+
+          this.dataEntryModelUpload = { attributeValues: [attr1] };
+          debugger;
+          this.addPotholeWork(this.dataEntryModelUpload.attributeValues[0]);
+        }
+      }
+    }
+  }
+
+  objLocation: MasticWorkModel;
+  addPotholeWork(objLocation) {
+    this.objLocation = objLocation;
+    debugger;
+    this.masticworkService.addMasticWork(this.objLocation).subscribe(
+      (result) => {
+        debugger;
+        if (result != null) {
+          if (result.status === 201) {
+            debugger;
+            (err) => {
+              // this.notificationService.warn(':: ' + err);
+            };
+            this.upload = false;
+            Swal.fire({
+              text: 'Road Created',
+              icon: 'success',
+            });
+            this.router.navigate(['potholework/list']);
+          }
+          if (result.status === 202) {
+          }
+        } else {
+          Swal.fire({
+            title: 'Seesion Expired',
+            text: 'Login Again to Continue',
+            icon: 'warning',
+            confirmButtonText: 'Ok',
+          }).then((result) => {
+            if (result.value) {
+              this.logOut();
+            }
+          });
+        }
+      },
+      (err) => {}
+    );
   }
 
   convertFile(file: File): Observable<string> {
@@ -475,10 +677,11 @@ export class MasticWorkDataEntryComponent {
   isDataEntry = sessionStorage.getItem('isDataEntry');
 
   minDate(): string {
-    if(this.userRole==='Data Owner' || this.isDataEntry == 'Yes' ){
-      return ""
-    }else{ const today: Date = new Date();
-      today.setHours(12); 
+    if (this.userRole === 'Data Owner' || this.isDataEntry == 'Yes') {
+      return '';
+    } else {
+      const today: Date = new Date();
+      today.setHours(12);
       today.setMinutes(0);
       const current: Date = new Date();
       if (current > today) {
@@ -490,7 +693,8 @@ export class MasticWorkDataEntryComponent {
         const yesterday: Date = new Date(today);
         yesterday.setDate(today.getDate() - 1);
         return this.formatDate(yesterday);
-      }}
+      }
+    }
   }
 
   maxDate(): string {

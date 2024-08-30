@@ -4,6 +4,8 @@ import { CreateuserComponent } from './createuser/createuser.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { UserlocationComponent } from './userlocation/userlocation.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { CreatePotholeUserComponent } from './create-pothole-user/create-pothole-user.component';
+import { ListPotholeUserComponent } from './list-pothole-user/list-pothole-user.component';
 
 const routes: Routes = [
   { path: 'create', component: CreateuserComponent },
@@ -11,6 +13,9 @@ const routes: Routes = [
   { path: 'list', component: UserlistComponent },
   { path: 'attachlocation/:id', component: UserlocationComponent },
   { path: 'changepassword/:id', component: ChangepasswordComponent },
+  { path: 'potholecreate', component: CreatePotholeUserComponent },
+  { path: 'potholecreate/:id', component: CreatePotholeUserComponent },
+  { path: 'potholelist', component: ListPotholeUserComponent },
 ];
 
 @NgModule({

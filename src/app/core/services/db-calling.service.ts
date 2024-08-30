@@ -43,7 +43,6 @@ export class DbCallingService {
       }
       console.log('Server side Error ', errorResponce);
     }
-    debugger;
     return throwError('something went wrong');
   }
   getTransactSearchParams(DataEntryModel) {
@@ -59,6 +58,16 @@ export class DbCallingService {
       .pipe(catchError(this.handleError));
   }
 
+  TwitterMsg(loginModel) {   
+    return this.httpClient.post<any>(this.apiURL + '/user/twittermsg', loginModel, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    })
+      .pipe(catchError(this.handleError));
+  }
+
+
   MobileLogin(loginModel) {  
     return this.httpClient.post<any>(this.apiURL + '/user/authenticate', loginModel, {
       headers: new HttpHeaders({
@@ -69,7 +78,6 @@ export class DbCallingService {
   }
 
   loginClick(loginModel) {
-    debugger;
     return this.httpClient.post<any>(this.apiURL + '/user/webauthenticate', loginModel, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -97,7 +105,6 @@ export class DbCallingService {
   }
 
   CheckUserZone(loginModel) {
-    debugger;
     return this.httpClient
       .post<any>(
         this.apiURL + '/report.svc/internalreport/checkuserzone',
@@ -112,7 +119,6 @@ export class DbCallingService {
   }
 
   getInternalPortalDropDownData(data) {
-    debugger;
     return this.httpClient
       .post<any>(
         this.apiURL + '/report.svc/report/InternalPortal_GetDropdownlistData',

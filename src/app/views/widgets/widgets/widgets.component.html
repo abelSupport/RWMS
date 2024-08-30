@@ -1,62 +1,81 @@
 <c-card class="mb-4">
-  <c-card-header>Widgets</c-card-header>
+  <!-- <c-card-header>Widgets</c-card-header> -->
   <c-card-body>
-    <app-docs-example href="components/">
-      <app-widgets-dropdown></app-widgets-dropdown>
-    </app-docs-example>
-    <app-docs-example href="components/widgets/#cwidgetstatsb">
+
+      <p>  Reported potholes and Attended potholes on : {{ displayYesterdayDate }}  </p>
       <c-row>
-        <c-col lg="3" md="6" xs="12">
+        
+        <br>
+        <c-col lg="4" md="6" xs="12">
           <c-widget-stat-b
-            [title]="'Widget title'"
-            class="mb-4"
-            text="Lorem ipsum dolor sit amet enim."
-            value="89.9%"
-          >
+            [title]="'Total Reported Potholes'"
+            class="mb-4"            
+            [value]="last24hrtotalcount">
             <c-progress class="my-2" thin>
-              <c-progress-bar [value]="89.9" color="success"></c-progress-bar>
+              <c-progress-bar [value]="100" color="success"></c-progress-bar>
             </c-progress>
           </c-widget-stat-b>
         </c-col>
-        <c-col lg="3" md="6" xs="12">
+        <c-col lg="4" md="6" xs="12">
           <c-widget-stat-b
-            [title]="'Widget title'"
+            [title]="'Total Attended Potholes'"
             class="mb-4"
-            text="Lorem ipsum dolor sit amet enim."
-            value="12.124"
+            [value]="last24hrtotalcompleted"
           >
             <c-progress class="my-2" thin>
-              <c-progress-bar [value]="89.9" color="info"></c-progress-bar>
+              <c-progress-bar [value]="100" color="info"></c-progress-bar>
             </c-progress>
           </c-widget-stat-b>
         </c-col>
-        <c-col lg="3" md="6" xs="12">
+        <c-col lg="4" md="6" xs="12">
           <c-widget-stat-b
-            [title]="'Widget title'"
+            [title]="'Live Cookers'"
             class="mb-4"
-            text="Lorem ipsum dolor sit amet enim."
-            value="$98,111.00"
+            [value]="liveCookers"
           >
             <c-progress class="my-2" thin>
-              <c-progress-bar [value]="89.9" color="warning"></c-progress-bar>
-            </c-progress>
-          </c-widget-stat-b>
-        </c-col>
-        <c-col lg="3" md="6" xs="12">
-          <c-widget-stat-b
-            [title]="'Widget title'"
-            class="mb-4"
-            text="Lorem ipsum dolor sit amet enim."
-            value="2 TB"
-          >
-            <c-progress class="my-2" thin>
-              <c-progress-bar [value]="89.9" color="primary"></c-progress-bar>
+              <c-progress-bar [value]="100" color="warning"></c-progress-bar>
             </c-progress>
           </c-widget-stat-b>
         </c-col>
       </c-row>
-    </app-docs-example>
-    <app-docs-example href="components/widgets/#cwidgetstatsb">
+
+      <p> Cumulative Reported potholes and Cumulative Attended potholes </p>
+      <c-row>
+        <c-col lg="4" md="6" xs="12">
+          <c-widget-stat-b
+            [title]="'Total Reported potholes'"
+            class="mb-4"            
+            [value]="totalcount">
+            <c-progress class="my-2" thin>
+              <c-progress-bar [value]="100" color="success"></c-progress-bar>
+            </c-progress>
+          </c-widget-stat-b>
+        </c-col>
+        <c-col lg="4" md="6" xs="12">
+          <c-widget-stat-b
+            [title]="'Total Attended Potholes'"
+            class="mb-4"
+            [value]="totalcompleted">
+            <c-progress class="my-2" thin>
+              <c-progress-bar [value]="100" color="info"></c-progress-bar>
+            </c-progress>
+          </c-widget-stat-b>
+        </c-col>
+        <c-col lg="4" md="6" xs="12">
+          <c-widget-stat-b
+            [title]="'Registered Cookers'"
+            class="mb-4"
+            [value]="registeredCookers"
+          >
+            <c-progress class="my-2" thin>
+              <c-progress-bar [value]="100" color="warning"></c-progress-bar>
+            </c-progress>
+          </c-widget-stat-b>
+        </c-col>
+      </c-row>
+    
+    <!-- <app-docs-example href="components/widgets/#cwidgetstatsb">
       <c-row>
         <c-col lg="3" md="6" xs="12">
           <c-widget-stat-b
@@ -611,6 +630,6 @@
           </c-widget-stat-c>
         </c-col>
       </c-row>
-    </app-docs-example>
+    </app-docs-example> -->
   </c-card-body>
 </c-card>

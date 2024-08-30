@@ -974,6 +974,7 @@ export class DashboardComponent implements OnInit {
     window.location.reload();
   }
 }
+
 function compare_qty(a, b) {
   if (a.priority > b.priority) {
     return -1;

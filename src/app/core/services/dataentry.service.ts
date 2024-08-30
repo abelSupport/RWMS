@@ -71,7 +71,6 @@ export class DataentryService {
   saveConData(data: DataEntryModel): Observable<IDataEntryModelResponce> {
       return this._httpClient.post<IDataEntryModelResponce>(this.baseURL+"savecon/" , JSON.stringify(data), this.options).pipe(
         catchError((error: HttpErrorResponse) => {
-          debugger;
           if (error.status === 204 && error.error.message === 'jwt expired') {
             console.log('JWT token expired');
           }

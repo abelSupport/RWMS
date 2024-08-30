@@ -35,6 +35,9 @@ import { AgGridModule } from 'ag-grid-angular';
 import { UserlocationComponent } from './userlocation/userlocation.component';
 import { BtnCellRenderer } from './userlist/button-cell-renderer.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { CreatePotholeUserComponent } from './create-pothole-user/create-pothole-user.component';
+import { ListPotholeUserComponent } from './list-pothole-user/list-pothole-user.component';
+import { BtnCellRendererPothole } from './list-pothole-user/button-cell-renderer.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,10 @@ import { ChangepasswordComponent } from './changepassword/changepassword.compone
     UserlocationComponent,
     BtnCellRenderer,
     ChangepasswordComponent,
+    CreatePotholeUserComponent,
+    ListPotholeUserComponent,
+    BtnCellRendererPothole,
+    
   ],
   imports: [
     CommonModule,

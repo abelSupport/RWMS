@@ -149,8 +149,7 @@ export class MasticWorkListComponent implements OnInit {
 
   getLocation() {
     // if (this.userRole === 'Data Owner') {
-    this.masticService.getMasticWork().subscribe(
-      (result) => {
+    this.masticService.getMasticWork().subscribe( (result) => {
         if (result != null) {
           if (result.status === 200) {
             if (this.userRole === 'Data Owner') {

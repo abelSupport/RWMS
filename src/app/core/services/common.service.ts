@@ -19,6 +19,22 @@ export class CommonService {
     }
   }
 
+  FormatDateTime(dateString) {
+    if (!dateString) return '-';
+  
+    // Extract date and time parts from the ISO string
+    const datePart = dateString.substring(0, 10); // yyyy-mm-dd
+    const timePart = dateString.substring(11, 16); // hh:mm
+  
+    // Split the date part
+    const [year, month, day] = datePart.split('-');
+  
+    // Format and return the new string
+    return `${day}-${month}-${year} ${timePart}`;
+  }
+
+
+
   DateTimeFormatter(date) {
     return moment(date).format('DD-MM-YYYY HH:MM');
   }
@@ -26,11 +42,11 @@ export class CommonService {
   formatDateForInput(date: Date): string {
 
     if(date){
-      console.log('dataDate', date);
+      // console.log('dataDate', date);
   
       const isoString = date.toString();
-      console.log('isoString', isoString);
-      console.log('Slice', isoString.slice(0, 16));
+      // console.log('isoString', isoString);
+      // console.log('Slice', isoString.slice(0, 16));
       // Convert Date object to ISO string
       return isoString.slice(0, 16); // Truncate milliseconds and timezone
     }else{

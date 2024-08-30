@@ -1,0 +1,106 @@
+<c-col xs="12">
+  <c-card class="mb-4">
+    <c-card-body>
+      <h5>{{ pageTitle }}</h5>
+
+      <hr style="margin-bottom: 50px" />
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" [validated]="customStylesValidated" cForm
+        class="row g-3 needs-validation">
+
+
+        <c-row class="mb-3">
+          <label cLabel class="col-sm-2" for="fromDate">From Date</label>
+          <c-col [sm]="8">
+            <input cFormControl id="fromDate" formControlName="fromDate" required type="datetime-local" />
+            <c-form-feedback [valid]="false">Please provide the From Date</c-form-feedback>
+          </c-col>
+        </c-row>
+
+        <c-row class="mb-3">
+          <label cLabel class="col-sm-2" for="toDate">To Date</label>
+          <c-col [sm]="8">
+            <input cFormControl id="toDate" formControlName="toDate" required type="datetime-local" />
+            <c-form-feedback [valid]="false">Please provide the To Date</c-form-feedback>
+          </c-col>
+        </c-row>
+
+        <c-row ngPreserveWhitespaces>
+          <c-col xs="12">
+            <c-card-body>
+              <c-row class="align-items-center mb-3">
+                <c-col>
+                  <button cButton class="me-1" color="success" type="submit">
+                    <svg cIcon name="cilPlus" style="margin-right: 5px;"></svg>
+                    SUBMIT
+                  </button>
+                  <!-- <button (click)="onReset()" cButton class="me-1" color="info" type="reset">
+                                  <svg cIcon name="cilReload" style="margin-right: 5px;"></svg>
+                                  RESET
+                              </button> -->
+                  <button (click)="Back()" cButton class="me-1" color="secondary">
+                    <svg cIcon name="cilArrowCircleLeft" style="margin-right: 5px;"></svg>
+                    BACK
+                  </button>
+                </c-col>
+              </c-row>
+            </c-card-body>
+          </c-col>
+        </c-row>
+      </form>
+    </c-card-body>
+  </c-card>
+</c-col>
+
+
+<c-row *ngIf="rowData.length>0">
+  <c-col xs>
+    <c-card class="mb-4">
+      <c-card-header>All Cookers Status Report</c-card-header>
+      <c-card-body>
+
+        <c-row class="mb-3">
+          <div class="col-md-3">
+            <!-- <div class="col-md-9">
+                <app-filter-button></app-filter-button>
+              </div> -->
+          </div>
+          <div class="col-md-3">
+            <c-input-group class="mb-3">
+              <input type="text" [(ngModel)]="quickfilter" (input)="onQuickFilterChanged()" id="quickFilter"
+                placeholder="quick filter..." class="form-control" />
+              <span cInputGroupText>
+                <svg cIcon name="cilSearch"></svg>
+              </span>
+            </c-input-group>
+          </div>
+          <div class="col-md-3" style="float: right">
+            <c-input-group class="float-end" class="mb-3">
+              <span cInputGroupText>
+                <svg cIcon name="cilCloudDownload"></svg>
+              </span>
+              <button type="button" cButton class="me-1" color="light" (click)="download()">
+                <i class="mdi mdi-plus-box"></i>Download Excel
+              </button>
+            </c-input-group>
+          </div>
+          <div class="col-md-3" style="float: right">
+            <c-input-group class="float-end" class="mb-3">
+              <span cInputGroupText>
+                <svg cIcon name="cilCloudDownload"></svg>
+              </span>
+              <button type="button" cButton class="me-1" color="light" (click)="downloadPDF()">
+                <i class="mdi mdi-plus-box"></i>Download PDF
+              </button>
+            </c-input-group>
+          </div>
+        </c-row>
+
+        <ag-grid-angular #agGrid style="width: 100%; height: 500px" id="myGrid" class="ag-theme-balham"
+          [columnDefs]="columnDefs" [rowData]="rowData" [gridOptions]="gridOptions" [pagination]="true"
+          [rowSelection]="rowSelection" [defaultColDef]="defaultColDef" [frameworkComponents]="frameworkComponents"
+          (gridRedy)="OnGridReady($event)">
+        </ag-grid-angular>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

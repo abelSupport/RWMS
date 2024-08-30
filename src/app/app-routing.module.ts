@@ -92,6 +92,14 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: 'potholework',
+        loadChildren: () =>
+          import('./modules/pothole-work/pothole-work.module').then(
+            (m) => m.PotholeWorkModule
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
         path: 'user',
         loadChildren: () =>
           import('./modules/user/user.module').then((m) => m.UserModule),

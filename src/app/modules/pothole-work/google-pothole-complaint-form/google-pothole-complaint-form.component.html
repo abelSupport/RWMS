@@ -1,0 +1,17 @@
+<c-col xs="12">
+    <c-card class="mb-4">
+        <c-card-body>
+            <h5>Create Twitter Pothole Complaint</h5>
+            <hr style="margin-bottom: 50px;">
+        </c-card-body>
+        <form>
+            <c-row class="mb-3">
+                <label cLabel class="col-sm-2" for="txtFileUpload">Before Image</label>
+                <c-col [sm]="3">
+                    <input cFormControl type="file" #csvReader name="Upload File" id="beforeImage"
+                         accept=".jpg" />
+                </c-col>
+            </c-row>
+        </form>
+    </c-card>
+</c-col>

@@ -345,6 +345,7 @@ export class LocationlistComponent implements OnInit {
       }
     });
   }
+
   methodFromParent(cell) {
     alert('Parent Component Method from ' + cell.id + '!');
   }
@@ -364,6 +365,7 @@ export class LocationlistComponent implements OnInit {
     }
     return null;
   }
+  
   setRowData(params) {
     params.api.forEachNode(function (node) {
       if (

@@ -1,16 +1,15 @@
-<c-col xs="12">
+<!-- <c-col xs="12">
   <c-card class="mb-4">
     <c-card-body>
       <h5>Mega CC Roads Dashboard</h5>
     </c-card-body>
   </c-card>
-</c-col>
-<c-col xs="12">
+</c-col> -->
+<!-- <c-col xs="12">
   <c-card class="mb-4">
     <c-card-body>
       <c-row>
         <c-col>
-          <!-- Each column takes 2/12 of the row on medium and extra-large screens, and 6/12 on extra-small screens -->
           <app-number-widget [text]="'Total Roads'" [value]="totalRoads" [length]="totalRoadsLength"
             [borderClass]="'dark'"></app-number-widget>
         </c-col>
@@ -22,14 +21,7 @@
           <app-number-widget [text]="'In Progress'" [value]="inProgressRoads" [length]="inProgressRoadsLength"
             [borderClass]="'warning'"></app-number-widget>
         </c-col>
-        <!-- <c-col md="2" xl="2" xs="6">
-          <app-number-widget
-            [text]="'Delayed'"
-            [value]="delayedRoads"
-            [length]="delayedRoadsLength"
-            [borderClass]="'danger'"
-          ></app-number-widget>
-        </c-col> -->
+
         <c-col>
           <app-number-widget [text]="'On Hold'" [value]="onHoldRoads" [length]="onHoldRoadsLength"
             [borderClass]="'danger'"></app-number-widget>
@@ -41,7 +33,7 @@
       </c-row>
     </c-card-body>
   </c-card>
-</c-col>
+</c-col> -->
 <app-display-ol-map></app-display-ol-map>
 
 <!-- <c-col xs="12">
@@ -173,7 +165,7 @@
 </c-row> -->
 
 
-<c-row *ngIf="rowData.length>0">
+<!-- <c-row *ngIf="rowData.length>0">
   <c-col xs>
     <c-card class="mb-4">
       <c-card-header>Roads List</c-card-header>
@@ -181,9 +173,7 @@
 
         <c-row class="mb-3">
           <div class="col-md-6">
-            <!-- <div class="col-md-9">
-              <app-filter-button></app-filter-button>
-            </div> -->
+        
           </div>
           <div class="col-md-3">
             <c-input-group class="mb-3">
@@ -214,7 +204,7 @@
       </c-card-body>
     </c-card>
   </c-col>
-</c-row>
+</c-row> -->
 
 
 <!-- <c-row>

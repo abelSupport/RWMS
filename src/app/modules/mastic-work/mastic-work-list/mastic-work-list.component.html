@@ -1,11 +1,11 @@
 <c-col xs="12">
   <c-card class="mb-4">
     <c-card-body>
-      <h5>Mastic Work List</h5>
+      <h5>Bad Patch Work List</h5>
       <hr style="margin-bottom: 20px" />
       <c-row class="mb-3">
-        <div class="col-md-6">
-          <c-input-group class="mb-3">
+        <div class="col-md-6" *ngIf="userRole === 'Data Owner'">
+          <c-input-group class="mb-3" >
             <span cInputGroupText>
               <svg cIcon name="cilPlus"></svg>
             </span>
@@ -16,7 +16,7 @@
               color="primary"
               (click)="Add()"
             >
-              <i class="mdi mdi-plus-box"></i>Add Mastic Work
+              <i class="mdi mdi-plus-box"></i>Add Bad Patch Work
             </button>
           </c-input-group>
         </div>

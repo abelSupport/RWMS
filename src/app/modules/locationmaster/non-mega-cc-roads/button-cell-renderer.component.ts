@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
       class="me-1"
       color="success"
       cButton
+      *ngIf="userRole === 'Data Owner'"
       (click)="btnClickedAddModuleDetailHandler()"
     >
       <svg cIcon name="cilMagnifyingGlass"></svg>
@@ -22,7 +23,7 @@ import Swal from 'sweetalert2';
       color="light"
       cButton
       (click)="btnClickedSave()"
-      *ngIf="userRole != 'Contractor'"
+      *ngIf="userRole === 'Data Owner'"
     >
       <svg cIcon name="cilSave"></svg>
       Save
@@ -32,7 +33,7 @@ import Swal from 'sweetalert2';
       color="light"
       cButton
       (click)="btnClickedDigitizeHandler()"
-      *ngIf="userRole != 'Contractor'"
+      *ngIf="userRole === 'Data Owner'"
     >
       <svg cIcon name="cilPenAlt"></svg>
       Digitize

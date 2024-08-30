@@ -51,7 +51,6 @@ export class LocationService {
   }
 
   // call(callUrl: string, formData: any): Observable<any> {
-  //   debugger;
   //   return this._httpClient.post(callUrl, formData);
   // }
 
@@ -86,7 +85,6 @@ export class LocationService {
       )
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          debugger;
           if (error.status === 204 && error.error.message === 'jwt expired') {
             console.log('JWT token expired');
           }
@@ -106,7 +104,6 @@ export class LocationService {
       )
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          debugger;
           if (error.status === 204 && error.error.message === 'jwt expired') {
             console.log('JWT token expired');
           }

@@ -26,6 +26,7 @@ export interface MasticWorkModel {
   createdBy: String;
   modifiedOn: Date;
   modifiedBy: String;
+  
 }
 
 export interface IMasticWorkResponse {

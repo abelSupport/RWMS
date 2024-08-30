@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { OtherThanAdminWithDataEntry, masticWork, navItems } from './_nav';
+import {
+  OtherThanAdminWithDataEntry,
+  masticWork,
+  navItems,
+  twitterPRO,
+  contractor,
+} from './_nav';
 import { OtherThanAdmin } from './_nav';
 
 @Component({
@@ -17,12 +23,21 @@ export class DefaultLayoutComponent implements OnInit {
     this.isDataEntry = sessionStorage.getItem('isDataEntry');
     debugger;
     if (this.userRole != 'Data Owner') {
-      if(this.userRole=="Mastic Work"){
+
+      if (this.userRole == 'Mastic Work') {
         this.navItems = masticWork;
-      }else{
+      } 
+      else if (this.userRole == 'Twitter PRO User') {
+        this.navItems = twitterPRO;
+      } 
+      else if (this.userRole == 'Contractor') {
+        this.navItems = contractor;
+      } 
+      else {
         if (this.isDataEntry == 'Yes') {
           this.navItems = OtherThanAdminWithDataEntry;
-        } else if(this.isDataEntry == 'No'){
+        } 
+        else if (this.isDataEntry == 'No') {
           this.navItems = OtherThanAdmin;
         }
       }

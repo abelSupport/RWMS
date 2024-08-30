@@ -1,0 +1,18 @@
+<c-row>
+    <c-col xs>
+        <c-card class="mb-4">
+            <c-card-body>
+                <c-row>
+                    <c-col [sm]="12">
+                        <div>
+                            <input type="text" #search placeholder="Search for location">
+                        </div>
+                        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"  (mapReady)="mapReadyHandler($event)">
+                            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                        </agm-map>
+                    </c-col>
+                </c-row>
+            </c-card-body>
+        </c-card>
+    </c-col>
+</c-row>

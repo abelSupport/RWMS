@@ -49,21 +49,48 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('UserRole', String(result.data[0].roleName));
         sessionStorage.setItem('UserName', String(result.data[0].userName));
         sessionStorage.setItem('jwttoken', String(result.token));
-        sessionStorage.setItem('UserWard', String(result.data[0].wards[0][0].wardName));
+        sessionStorage.setItem(
+          'UserWard',
+          String(result.data[0].wards[0][0].wardName)
+        );
         debugger;
-        if(String(result.data[0].roleName)==="Data Viewer" || String(result.data[0].roleName)==="Executive Engineer" || String(result.data[0].roleName)==="Assistant Engineer"){
-          sessionStorage.setItem('UserWard', String(result.data[0].wards.map(m=>m[0].wardName)));
+        if (
+          String(result.data[0].roleName) === 'Data Viewer' ||
+          String(result.data[0].roleName) === 'Executive Engineer' ||
+          String(result.data[0].roleName) === 'Assistant Engineer' ||
+          String(result.data[0].roleName) === 'Twitter PRO User' ||
+          String(result.data[0].roleName) === 'Data Owner' ||
+          String(result.data[0].roleName) === 'Contractor' ||
+          String(result.data[0].roleName) ===
+            'Additional Municipal Commissioner' ||
+          String(result.data[0].roleName) === 'Deputy Municipal Commissioner' ||
+          String(result.data[0].roleName) === 'Deputy Chief' ||
+          String(result.data[0].roleName) === 'Chief Engineer'
+        ) {
+          debugger;
+          sessionStorage.setItem(
+            'UserWard',
+            String(result.data[0].wards.map((m) => m[0].wardName))
+          );
         }
-        sessionStorage.setItem('isDataEntry', String(result.data[0].isDataEntry));
+        sessionStorage.setItem(
+          'isDataEntry',
+          String(result.data[0].isDataEntry)
+        );
         debugger;
-        if(String(result.data[0].roleName)===String("Mastic Work")){
+        if (String(result.data[0].roleName) === String('Mastic Work')) {
           this.router.navigateByUrl('location/masticworklist');
-        }
-        else{
+        } else if (
+          String(result.data[0].roleName) === String('Twitter PRO User')
+        ) {
+          this.router.navigateByUrl('potholework/gmap');
+        } else if (String(result.data[0].roleName) === String('Contractor')) {
+          sessionStorage.setItem('WorkCode', String(result.data[0].lastName));
+          this.router.navigateByUrl('potholework/list');
+        } else {
           this.router.navigateByUrl('dashboard');
         }
-       
-      } 
+      }
       if (result.status === 201) {
         Swal.fire({
           text: 'Invalid UserName Or Password !',

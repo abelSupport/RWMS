@@ -17,8 +17,8 @@ export class UserloginComponent {
     username: ['', [Validators.required]],
     password: ['', [Validators.required]],
   });
-  token:String='0'
-  userModel:User
+  token: String = '0';
+  userModel: User;
   loginModel: LoginModel;
   result: any = [];
   UOTP: number = 0;
@@ -50,8 +50,8 @@ export class UserloginComponent {
     this.userService.loginOTP(obj).subscribe((result) => {
       debugger;
       if (result.status === 200) {
-        this.userModel=result.data[0]
-        this.token=result.token
+        this.userModel = result.data[0];
+        this.token = result.token;
         this.dbCallingService.GenerateOTP(obj).subscribe(
           (res) => {
             if (res.servicesesponse === 1) {
@@ -76,7 +76,7 @@ export class UserloginComponent {
           username: obj.MobileNo,
           password: '',
         });
-      }else if(result.status === 201) {
+      } else if (result.status === 201) {
         debugger;
         Swal.fire({
           text: result.message.toString(),
@@ -84,8 +84,6 @@ export class UserloginComponent {
         });
       }
     });
-
-
   }
 
   ValidateUser() {
@@ -99,20 +97,46 @@ export class UserloginComponent {
       sessionStorage.setItem('UserName', String(this.userModel.userName));
       sessionStorage.setItem('jwttoken', String(this.token));
       sessionStorage.setItem('isDataEntry', String(this.userModel.isDataEntry));
-      sessionStorage.setItem('UserWard', String(this.userModel.wards[0][0].wardName));
+      sessionStorage.setItem(
+        'UserWard',
+        String(this.userModel.wards[0][0].wardName)
+      );
       debugger;
-      if(String(this.userModel.roleName)==="Data Viewer" || String(this.userModel.roleName)==="Executive Engineer" || String(this.userModel.roleName)==="Assistant Engineer"){
-        sessionStorage.setItem('UserWard', String(this.userModel.wards.map(m=>m[0].wardName)));
+      if (
+        String(this.userModel.roleName) === 'Data Viewer' ||
+        String(this.userModel.roleName) === 'Executive Engineer' ||
+        String(this.userModel.roleName) === 'Assistant Engineer'||
+        String(this.userModel.roleName) === 'Twitter PRO User' ||
+        String(this.userModel.roleName) === 'Data Owner' ||
+        String(this.userModel.roleName) === 'Contractor' ||
+        String(this.userModel.roleName) === 'Additional Municipal Commissioner'  ||
+        String(this.userModel.roleName) === 'Deputy Municipal Commissioner' ||
+        String(this.userModel.roleName) === 'Deputy Chief' ||
+        String(this.userModel.roleName) === 'Chief Engineer'
+      ) {
+        sessionStorage.setItem(
+          'UserWard',
+          String(this.userModel.wards.map((m) => m[0].wardName))
+        );
       }
       sessionStorage.setItem('isDataEntry', String(this.userModel.isDataEntry));
       debugger;
-      if(String(this.userModel.roleName)===String("Mastic Work")){
+      if (String(this.userModel.roleName) === String('Mastic Work')) {
         this.router.navigateByUrl('location/masticworklist');
-      }
-      else{
+      } else if (
+        String(this.userModel.roleName) === String('Twitter PRO User')
+      ) {
+        this.router.navigateByUrl('potholework/gmap');
+      } else if (
+        String(this.userModel.roleName) === String('Contractor')
+      ) {
+        sessionStorage.setItem('WorkCode', String(this.userModel.lastName));
+        this.router.navigateByUrl('potholework/list');
+      } else {
         this.router.navigateByUrl('dashboard');
       }
-   
+
+      
     } else {
       Swal.fire({
         text: 'Invalid OTP',

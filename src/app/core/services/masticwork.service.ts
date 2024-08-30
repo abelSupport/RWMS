@@ -43,6 +43,30 @@ export class MasticworkService {
       .pipe(catchError(this.handleError));
   }
 
+  getPotholeWork(): Observable<any> {
+    return this._httpClient
+      .get<any>(this.API_URL + 'location/potholework')
+      .pipe(catchError(this.handleError));
+  }
+
+  getTwitterWork(): Observable<any> {
+    return this._httpClient
+      .get<any>(this.API_URL + 'location/twitterwork')
+      .pipe(catchError(this.handleError));
+  }
+
+  getMasticMasterData(): Observable<any> {
+    return this._httpClient
+    .get<any>('https://roads.mcgm.gov.in:3000/api/masticwork/getmasticmasterdata')
+    .pipe(catchError(this.handleError));
+  }  
+
+  getCookerMasterData(): Observable<any> {
+    return this._httpClient
+    .get<any>('https://roads.mcgm.gov.in:3000/api/masticwork/getcookermasterdata') ///1. make api service fot cookermaster
+    .pipe(catchError(this.handleError));
+  }
+  
   getMasticRoads(): Observable<IMasticRoadResponse> {
     return this._httpClient
       .get<IMasticRoadResponse>(this.baseURL + 'getmasticroad')
@@ -83,6 +107,35 @@ export class MasticworkService {
       )
       .pipe(catchError(this.handleError));
   }
+
+  updateLengthWidthMasticWork(id:any,obj: any): Observable<IMasticWorkResponse> {
+    return this._httpClient
+      .post<IMasticWorkResponse>(
+        this.API_URL+'location/' + 'updatelengthwidth/'+id,
+        JSON.stringify(obj),
+        {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+          }),
+        }
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  updateLengthWidthPotholeWork(id:any,obj: any): Observable<IMasticWorkResponse> {
+    return this._httpClient
+      .post<IMasticWorkResponse>(
+        this.API_URL+'location/' + 'updatelengthwidthpothole/'+id,
+        JSON.stringify(obj),
+        {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+          }),
+        }
+      )
+      .pipe(catchError(this.handleError));
+  }
+
 
   getMasticWorkByUser(obj: any): Observable<IMasticWorkResponse> {
     return this._httpClient
@@ -127,4 +180,58 @@ export class MasticworkService {
       );
   }
 
+  updateAfterImageMasticWork(locationid: any,
+    data: any): Observable<IMasticWorkResponse> {
+    return this._httpClient
+      .post<IMasticWorkResponse>(
+        this.API_URL + 'location/masticworkafterimage/'+ locationid,
+        JSON.stringify(data),
+        {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+          }),
+        }
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  deleteMasticWork(locationid: any,
+    data: any): Observable<IMasticWorkResponse> {
+    return this._httpClient
+      .post<IMasticWorkResponse>(
+        this.API_URL + 'location/deletemasticwork/'+ locationid,
+        JSON.stringify(data),
+        {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+          }),
+        }
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  closeTwitterMasticWork(locationid: any): Observable<IMasticWorkResponse> {
+    return this._httpClient
+      .post<IMasticWorkResponse>(
+        this.API_URL + 'location/closetwittermasticwork/'+ locationid,
+        {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+          }),
+        }
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  updateImages(obj: any): Observable<any> {
+    debugger;
+    return this._httpClient.post<any>(this.baseURL + 'updateimages',  JSON.stringify(obj),
+        {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+          }),
+        }
+      )
+      .pipe(catchError(this.handleError));
+  }
 }

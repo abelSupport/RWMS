@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AgGridModule } from 'ag-grid-angular';
 
 import { OpenLayersRoutingModule } from './open-layers-routing.module';
 import { DisplayOlMapComponent } from './display-ol-map/display-ol-map.component';
 import { DigitizeRoadComponent } from './digitize-road/digitize-road.component';
 import { AddLineStringComponent } from './add-line-string/add-line-string.component';
-
+import { AgmCoreModule } from '@agm/core';
 import { IconModule } from '@coreui/icons-angular';
 import {
   AccordionModule,
@@ -34,6 +35,8 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MapFeatureComponent } from './map-feature/map-feature.component';
 import { PlantexVtsFeatureComponent } from './plantex-vts-feature/plantex-vts-feature.component';
+import { GoogleMapComponent } from './google-map/google-map.component';
+import { MasticPlantFeatureComponent } from './mastic-plant-feature/mastic-plant-feature.component';
 
 @NgModule({
   declarations: [
@@ -41,12 +44,13 @@ import { PlantexVtsFeatureComponent } from './plantex-vts-feature/plantex-vts-fe
     DigitizeRoadComponent,
     AddLineStringComponent,
     MapFeatureComponent,
-    PlantexVtsFeatureComponent
+    PlantexVtsFeatureComponent,
+    GoogleMapComponent,
+    MasticPlantFeatureComponent,
   ],
-  exports:[
-    DisplayOlMapComponent
-  ],
+  exports: [DisplayOlMapComponent],
   imports: [
+    AgmCoreModule,
     CommonModule,
     OpenLayersRoutingModule,
     AccordionModule,
@@ -61,6 +65,7 @@ import { PlantexVtsFeatureComponent } from './plantex-vts-feature/plantex-vts-fe
     GridModule,
     ListGroupModule,
     NavModule,
+    AgGridModule,
     PaginationModule,
     PlaceholderModule,
     PopoverModule,
@@ -73,7 +78,7 @@ import { PlantexVtsFeatureComponent } from './plantex-vts-feature/plantex-vts-fe
     UtilitiesModule,
     FormsModule,
     ReactiveFormsModule,
-    IconModule
-  ]
+    IconModule,
+  ],
 })
-export class OpenLayersModule { }
+export class OpenLayersModule {}

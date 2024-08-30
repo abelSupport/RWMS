@@ -73,7 +73,8 @@ import { DataentryModule } from './modules/dataentry/dataentry.module';
 import { DashboardWidgetsModule } from './CustomViews/dashboard-widgets/dashboard-widgets.module';
 import { RWMSReportsModule } from './modules/rwmsreports/rwmsreports.module';
 import { OpenLayersModule } from './modules/open-layers/open-layers.module';
-
+import { PotholeWorkModule } from './modules/pothole-work/pothole-work.module';
+import { AgmCoreModule } from '@agm/core';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
@@ -137,6 +138,10 @@ const APP_CONTAINERS = [
     DashboardWidgetsModule,
     RWMSReportsModule,
     OpenLayersModule,
+    PotholeWorkModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDtIpdguq2MkWUFoHGHPmaZAFavkKFpcqc'
+    }),
     FormlyModule.forRoot({
       extras: { lazyRender: true },
       wrappers: [

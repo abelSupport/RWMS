@@ -1,0 +1,91 @@
+<c-col xs="12">
+  <c-card class="mb-4">
+    <c-card-body>
+      <h5>{{ pageTitle }}</h5>
+
+      <hr style="margin-bottom: 50px" />
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" [validated]="customStylesValidated" cForm
+        class="row g-3 needs-validation">
+
+
+
+        <c-row class="mb-3">
+          <label cLabel class="col-sm-2" for="contractorName">Service Provider</label>
+          <c-col [sm]="8">
+            <select cSelect id="contractorName" formControlName="contractorName" required
+              (change)="onContractorChange($event)">
+              <option *ngFor="let c of contractorNameList" [value]="c.id">
+                {{ c.name }}
+              </option>
+            </select>
+            <c-form-feedback [valid]="false">Please select a Road Name</c-form-feedback>
+          </c-col>
+        </c-row>
+
+        <c-row class="mb-3">
+          <label cLabel class="col-sm-2" for="vehicle">Vehicle</label>
+          <c-col [sm]="8">
+            <select cSelect id="vehicle" formControlName="vehicle" required>
+              <option value=""> --Select Vehicle-- </option>
+              <option *ngFor="let v of vehicleList" [value]="v"> {{ v }} </option>
+            </select>
+            <c-form-feedback [valid]="false">Please select a Road Name</c-form-feedback>
+          </c-col>
+        </c-row>
+
+        <c-row class="mb-3">
+          <label cLabel class="col-sm-2" for="fromDate">From Date</label>
+          <c-col [sm]="8">
+            <input cFormControl id="fromDate" formControlName="fromDate" required type="datetime-local" />
+            <c-form-feedback [valid]="false">Please provide the From Date</c-form-feedback>
+          </c-col>
+        </c-row>
+
+        <c-row class="mb-3">
+          <label cLabel class="col-sm-2" for="toDate">To Date</label>
+          <c-col [sm]="8">
+            <input cFormControl id="toDate" formControlName="toDate" required type="datetime-local" />
+            <c-form-feedback [valid]="false">Please provide the To Date</c-form-feedback>
+          </c-col>
+        </c-row>
+
+        <c-row ngPreserveWhitespaces>
+          <c-col xs="12">
+            <c-card-body>
+              <c-row class="align-items-center mb-3">
+                <c-col>
+                  <button cButton class="me-1" color="success" type="submit">
+                    <svg cIcon name="cilPlus" style="margin-right: 5px;"></svg>
+                    SUBMIT
+                  </button>
+                  <!-- <button (click)="onReset()" cButton class="me-1" color="info" type="reset">
+                                  <svg cIcon name="cilReload" style="margin-right: 5px;"></svg>
+                                  RESET
+                              </button> -->
+                  <button (click)="Back()" cButton class="me-1" color="secondary">
+                    <svg cIcon name="cilArrowCircleLeft" style="margin-right: 5px;"></svg>
+                    BACK
+                  </button>
+                </c-col>
+              </c-row>
+            </c-card-body>
+          </c-col>
+        </c-row>
+      </form>
+    </c-card-body>
+  </c-card>
+</c-col>
+
+
+
+<c-col xs="12">
+  <div id="map" class="map"></div>
+</c-col>
+
+<c-col xs="12" *ngIf="rowData.length > 0">
+  <ag-grid-angular #agGrid style="width: 100%; height: 200px" id="myGrid" class="ag-theme-balham"
+    [columnDefs]="columnDefs" [rowData]="rowData" [gridOptions]="gridOptions" [pagination]="true"
+    [rowSelection]="rowSelection" [defaultColDef]="defaultColDef" [frameworkComponents]="frameworkComponents"
+    (gridRedy)="OnGridReady($event)">
+  </ag-grid-angular>
+</c-col>

@@ -1,0 +1,56 @@
+
+
+
+<c-row>
+    <c-col xs>
+        <c-card class="mb-4">
+            <c-card-body>
+                <c-row>
+                    <c-col [sm]="12">
+                        <div>
+                            <input id="search-box" type="text" placeholder="Search for location" />
+                        </div>
+                        <div style="height: 500px;" id="map"></div>
+                    </c-col>
+                </c-row>
+            </c-card-body>
+        </c-card>
+    </c-col>
+  </c-row>
+
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-body>
+        <h5>Twitter Complaint List</h5>
+        <hr style="margin-bottom: 20px" />
+        <c-row class="mb-3">
+          <div class="col-md-5">
+          </div>
+          <div class="col-md-3">
+            <c-input-group class="mb-3">
+              <input type="text" (input)="onQuickFilterChanged()" id="quickFilter" placeholder="quick filter..."
+                class="form-control" />
+            </c-input-group>
+          </div>
+          <div class="col-md-3" style="float: right">
+            <c-input-group class="float-end" class="mb-3">
+              <span cInputGroupText>
+                <svg cIcon name="cilCloudDownload"></svg>
+              </span>
+              <button type="button" cButton class="me-1" color="light" (click)="download()">
+                <i class="mdi mdi-plus-box"></i>Download
+              </button>
+            </c-input-group>
+          </div>
+        </c-row>
+      </c-card-body>
+      <c-card-body>
+        <ag-grid-angular #agGrid style="width: 100%; height: 450px" id="myGrid" class="ag-theme-balham"
+          [gridOptions]="gridOptions" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="rowData"
+          [animateRows]="true" [pagination]="true" [context]="context" [suppressRowClickSelection]="true"
+          [rowSelection]="rowSelection" [frameworkComponents]="frameworkComponents" [defaultColDef]="defaultColDef"
+          (gridRedy)="OnGridReady($event)">
+        </ag-grid-angular>
+      </c-card-body>
+    </c-card>
+  </c-col>

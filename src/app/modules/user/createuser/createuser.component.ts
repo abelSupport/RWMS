@@ -323,8 +323,8 @@ export class CreateuserComponent implements OnInit {
 
   addUser(userModel1) {
     debugger;
-    this.userService.AddUser(userModel1).subscribe(
-      (result) => {
+    this.userService.AddUser(userModel1).subscribe((result) => {
+      debugger;
         if (result != null) {
           if (result.status === 201) {
             this.router.navigate(['user/list']);

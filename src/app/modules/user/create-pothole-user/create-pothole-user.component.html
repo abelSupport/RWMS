@@ -1,0 +1,175 @@
+<c-col xs="12">
+    <c-card class="mb-4">
+        <c-card-body>
+            <h5>{{pageTitle}}</h5>
+            <hr style="margin-bottom: 50px;">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" [validated]="customStylesValidated" cForm
+                class="row g-3 needs-validation">
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="firstName">First Name</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="firstName" required type="text" formControlName="firstName" />
+                        <c-form-feedback [valid]="false">Please provide your first name</c-form-feedback>
+                    </c-col>
+                </c-row>
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="lastName">Last Name</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="lastName"  type="text" formControlName="lastName" />
+                    </c-col>
+                </c-row>
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="userName">User Name</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="userName" required type="text" formControlName="userName" />
+                        <c-form-feedback [valid]="false">Please provide a user name</c-form-feedback>
+                    </c-col>
+                </c-row>
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="email">Email ID</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="email" required type="email" formControlName="email" />
+                        <c-form-feedback [valid]="false">Please provide a valid email address</c-form-feedback>
+                    </c-col>
+                </c-row>
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="mobileNo">Mobile NO</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="mobileNo" required type="tel" formControlName="mobileNo" />
+                        <c-form-feedback [valid]="false">Please provide a valid mobile number</c-form-feedback>
+                    </c-col>
+                </c-row>
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="password">Password</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="password" required type="password" formControlName="password" />
+                        <c-form-feedback [valid]="false">Please provide a password</c-form-feedback>
+                    </c-col>
+                </c-row>
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="role">Role</label>
+                    <c-col [sm]="8">
+                        <select cSelect id="role" formControlName="role" required>
+                            <option value="">Choose...</option>
+                            <option *ngFor="let role of roleList" [value]="role._id">{{role.roleName}}</option>
+                        </select>
+                        <c-form-feedback [valid]="false">Please provide a role</c-form-feedback>
+                    </c-col>
+                </c-row>
+
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="ward">Ward</label>
+                    <c-col [sm]="8">
+                        <select class="form-control" id="ward" formControlName="ward" (change)="onWardChange($event)" multiple>
+                            <option *ngFor="let w of modelWard" [value]="w.wardName">{{w.wardName}}</option>
+                          </select>
+                        <c-form-feedback [valid]="false">Please provide a Ward</c-form-feedback>
+                    </c-col>
+                </c-row>
+
+
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="isActive">Is Active</label>
+                    <c-col [sm]="8">
+                        <select cSelect id="isActive" formControlName="isActive" required>
+                            <option value="">Choose...</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                        <c-form-feedback [valid]="false">Please provide</c-form-feedback>
+                    </c-col>
+                </c-row>
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="isDataEntry">Is Data Entry</label>
+                    <c-col [sm]="8">
+                        <select cSelect id="isDataEntry" formControlName="isDataEntry" required>
+                            <option value="">Choose...</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        <c-form-feedback [valid]="false">Please provide</c-form-feedback>
+                    </c-col>
+                </c-row>
+
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="ecNo">EC NO</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="ecNo"  type="tel" formControlName="ecNo" />
+                        <c-form-feedback [valid]="false">Please provide a EC NO</c-form-feedback>
+                    </c-col>
+                </c-row>
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="electrolWardNo">Electrol Ward No</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="electrolWardNo"  type="tel" formControlName="electrolWardNo" />
+                        <c-form-feedback [valid]="false">Please provide a Electrol Ward No</c-form-feedback>
+                    </c-col>
+                </c-row>
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="personalMobileNo">Personal Mobile NO</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="personalMobileNo"  type="tel" formControlName="personalMobileNo" />
+                        <c-form-feedback [valid]="false">Please provide a valid mobile number</c-form-feedback>
+                    </c-col>
+                </c-row>
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="simAlloted">SIM Alloted</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="simAlloted"  type="tel" formControlName="simAlloted" />
+                        <c-form-feedback [valid]="false">Please provide a SIM Alloted number</c-form-feedback>
+                    </c-col>
+                </c-row>
+
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="imsiAlloted">IMSI Alloted</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="imsiAlloted" type="tel" formControlName="imsiAlloted" />
+                        
+                    </c-col>
+                </c-row>
+
+                <c-row ngPreserveWhitespaces>
+                    <c-col xs="12">
+                        <c-card-body>
+                            <c-row class="align-items-center mb-3">
+                                <c-col>
+                                    <button cButton class="me-1" color="success" type="submit">
+                                        <svg cIcon name="cilPlus" style="margin-right: 5px;"></svg>
+                                        SUBMIT
+                                    </button>
+                                    <button (click)="onReset()" cButton class="me-1" color="info" type="reset">
+                                        <svg cIcon name="cilReload" style="margin-right: 5px;"></svg>
+                                        RESET
+                                    </button>
+                                    <button (click)="Back()" cButton class="me-1" color="secondary">
+                                        <svg cIcon name="cilArrowCircleLeft" style="margin-right: 5px;"></svg>
+                                        BACK
+                                    </button>
+                                </c-col>
+                            </c-row>
+                        </c-card-body>
+                    </c-col>
+                </c-row>
+            </form>
+
+            <div *ngIf="userRole === 'Data Owner'" style="margin-top: 50px;">
+                <hr class="my-3">
+                <form [formGroup]="form">              
+                  <h6 class="card-title">Browse Excel file for Upload</h6>   
+                  <c-row class="mb-3">
+                    <c-col [sm]="3">
+                        <input cFormControl type="file" #csvReader name="Upload File" id="txtFileUpload" (change)="uploadListener($event)"
+                               accept=".xlsx" />
+                      </c-col>
+                      <c-col [sm]="4">
+                        <button (click)="onReset()" cButton class="me-1" color="warning" type="reset" (click)="UploadClick()">
+                            <!-- <svg cIcon name="cilUpload" style="margin-right: 5px;"></svg> -->
+                            UPLOAD
+                        </button>
+                      </c-col>
+                  </c-row>      
+                </form>
+            </div>  
+        </c-card-body>
+    </c-card>
+</c-col>

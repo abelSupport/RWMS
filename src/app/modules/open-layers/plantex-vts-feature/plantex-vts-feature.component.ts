@@ -10,6 +10,7 @@ export class PlantexVtsFeatureComponent implements OnInit {
   feature: any;
   address: any;
   registrationNo: any;
+  vendorName:any;
   DateTime: any;
  
   Back() {}
@@ -21,6 +22,7 @@ export class PlantexVtsFeatureComponent implements OnInit {
       console.log(this.feature);
       this.address = this.feature.Address;
       this.registrationNo = this.feature.RegistrationNo;
+      this.vendorName=this.feature.VendorName;
       this.DateTime = this.feature.GPSDateTime;
     });
   }

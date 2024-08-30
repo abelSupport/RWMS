@@ -376,7 +376,7 @@ export class MegaCcRoadsComponent  implements OnInit {
 
   download() {
     let fileName =
-    'Non Mega CC Road List ' +
+    'Mega CC Road List ' +
     moment(new Date()).format('DDMMYYYY') +
       '.xlsx';
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.rowData);

@@ -8,16 +8,16 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'btn-cell-renderer',
   template: `
-    <button
+     <button
       class="me-1"
       color="light"
       cButton
       (click)="btnClickedEditHandler()"
-      *ngIf="edit || isDataEntry"
+      *ngIf="edit"
     >
       <svg cIcon name="cilNoteAdd"></svg>
       Edit
-    </button>
+    </button> 
     <button
     class="me-1"
       color="light"
@@ -53,7 +53,7 @@ export class BtnCellRenderer implements ICellRendererAngularComp {
     this.params = params;
 
     if(this.dataEntry==='Yes'){
-      this.isDataEntry=true
+      // this.isDataEntry=true
     }
 
     if (this.userRole === 'Data Owner') {
@@ -93,17 +93,17 @@ export class BtnCellRenderer implements ICellRendererAngularComp {
         console.log('current<today');
 
         if (createdOn > yesterday && createdOn < today) {
-          console.log('createdOn < today & > yesterday');
-          this.edit = true;
+          // console.log('createdOn < today & > yesterday');
+          // this.edit = true;
         }
       } else if (current > today) {
-        console.log('current>today');
+        // console.log('current>today');
         debugger;
         if (createdOn > today && createdOn < tommorrow) {
           debugger;
-          console.log('createdOn > today & < tommorrow');
+          // console.log('createdOn > today & < tommorrow');
           debugger;
-          this.edit = true;
+          // this.edit = true;
         }
       }
     }

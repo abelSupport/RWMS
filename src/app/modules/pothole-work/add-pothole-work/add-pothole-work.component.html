@@ -1,0 +1,214 @@
+<c-col xs="12">
+    <c-card class="mb-4">
+        <c-card-body>
+            <h5>Create Bad Patch Work</h5>
+            <hr style="margin-bottom: 50px;">
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" [validated]="customStylesValidated" cForm
+                class="row g-3 needs-validation">
+
+                <c-row class="mb-3" *ngIf="!showRoadNameInput">
+                    <label cLabel class="col-sm-2" for="locationName">Road Name</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="locationName" formControlName="locationName" type="text" />
+                        <c-form-feedback [valid]="false">Please select a Road Name</c-form-feedback>
+                    </c-col>
+                </c-row>
+
+               
+
+                <c-row class="mb-3" *ngIf="showRoadNameInput">
+                    <label cLabel class="col-sm-2" for="location">Road Name</label>
+                    <c-col [sm]="8">
+                        <select cSelect id="location" formControlName="location" (change)="onlocationChange($event)">
+                            <option *ngFor="let ward of masticRoadsList" [value]="ward._id">
+                                {{ ward.locationName }}
+                            </option>
+                        </select>
+                        <c-form-feedback [valid]="false">Please select a Road Name</c-form-feedback>
+                    </c-col>
+                </c-row>
+
+
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="wardName">Ward Name</label>
+                    <c-col [sm]="8">
+                        <select cSelect id="wardName" formControlName="wardName" (change)="onWardChange($event)"
+                            required>
+                            <option *ngFor="let ward of wardList" [value]="ward._id">{{ward.wardName}}</option>
+                        </select>
+                        <c-form-feedback [valid]="false">Please select a Ward Name</c-form-feedback>
+                    </c-col>
+                </c-row>
+
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="zoneName">Zone Name</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="zoneName" formControlName="zoneName" required type="text" />
+                        <c-form-feedback [valid]="false">Please provide Zone Name</c-form-feedback>
+                    </c-col>
+                </c-row>
+
+                <!-- <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="workCode">Work Code</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="workCode" formControlName="workCode" required type="text" />
+                        <c-form-feedback [valid]="false">Please select a Work Code</c-form-feedback>
+                    </c-col>
+                </c-row>
+
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="contractorName">Contractor Name</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="contractorName" formControlName="contractorName" required type="text" />
+                        <c-form-feedback [valid]="false">Please provide Contractor Name</c-form-feedback>
+                    </c-col>
+                </c-row> -->
+
+                
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="length">Length (m)</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="length" formControlName="length" required type="text" />
+                        <c-form-feedback [valid]="false">Please provide the Length</c-form-feedback>
+                    </c-col>
+                </c-row>
+
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="width">Width (m)</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="width" formControlName="width" required type="text" />
+                        <c-form-feedback [valid]="false">Please provide the Width</c-form-feedback>
+                    </c-col>
+                </c-row>
+
+                <!-- <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="dataDate">Mastic Work Date & Time</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="dataDate"  [min]="minDate()" [max]="maxDate()" formControlName="dataDate" required type="datetime-local" />
+                        <c-form-feedback [valid]="false">Please provide the Date of Mastic Work</c-form-feedback>
+                    </c-col>
+                </c-row>
+
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="cookerRegistrationNo">Cooker Registration No</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="cookerRegistrationNo" formControlName="cookerRegistrationNo"
+                            type="text" />
+                        <c-form-feedback [valid]="false">Please provide the Cooker Registration No</c-form-feedback>
+                    </c-col>
+                </c-row> -->
+
+
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="masticQuantity">Mastic Area Attended (sq. m.)</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="masticQuantity" formControlName="masticQuantity" type="number" />
+                        <c-form-feedback [valid]="false">Please provide the Mastic Area</c-form-feedback>
+                    </c-col>
+                </c-row>
+
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="reporteddate">Reported Date </label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="reporteddate" formControlName="reporteddate" type="date" />
+                        <c-form-feedback [valid]="false">Please provide the Reported Date</c-form-feedback>
+                    </c-col>
+                </c-row>
+
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="attendeddate">Attended Date</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="attendeddate" formControlName="attendeddate" type="date" />
+                        <c-form-feedback [valid]="false">Please provide the Attended Date</c-form-feedback>
+                    </c-col>
+                </c-row>
+              
+
+
+                <!-- <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="txtFileUpload">Before Image</label>
+                    <c-col [sm]="3">
+                        <input cFormControl type="file" #csvReader name="Upload File" id="beforeImage"
+                            (change)="beforeUploadListener($event)" accept=".jpg" />
+                    </c-col>
+                    <c-col [sm]="4" *ngIf="locId">
+                        <button type="button" class="btn btn-warning me-1" (click)="viewBeforeImage()">
+                            <svg class="bi me-1" width="16" height="16" fill="currentColor">
+                            </svg>
+                            View Image
+                        </button> 
+                    </c-col>
+                </c-row>
+
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="txtFileUpload">After Image</label>
+
+                    <c-col [sm]="3">
+                        <input cFormControl type="file" #csvReader name="Upload File" id="afterImage"
+                            (change)="afterUploadListener($event)" accept=".jpg" />
+                    </c-col>
+                    <div class="col-sm-4" *ngIf="locId">
+                        <button type="button" class="btn btn-warning me-1" (click)="viewAfterImage()">
+                            <svg class="bi me-1" width="16" height="16" fill="currentColor">
+                            </svg>
+                            View Image
+                        </button>
+                    </div>
+                </c-row> -->
+
+                <!-- <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="coordinates">Coordinates</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="coordinates" formControlName="coordinates" type="text" />
+                        <c-form-feedback [valid]="false">Please provide the coordinates</c-form-feedback>
+                    </c-col>
+                </c-row> -->
+
+                <c-row class="mb-3">
+                    <label cLabel class="col-sm-2" for="remarks">Remarks</label>
+                    <c-col [sm]="8">
+                        <input cFormControl id="remarks" formControlName="remarks" type="text" />
+                    </c-col>
+                </c-row>
+
+                <c-row ngPreserveWhitespaces>
+                    <c-col xs="12">
+                        <c-card-body>
+                            <c-row class="align-items-center mb-3">
+                                <c-col>
+                                    <button cButton class="me-1" color="success" type="submit">
+                                        <svg cIcon name="cilPlus" style="margin-right: 5px;"></svg>
+                                        SUBMIT
+                                    </button>
+                                    <button (click)="onReset()" cButton class="me-1" color="info" type="reset">
+                                        <svg cIcon name="cilReload" style="margin-right: 5px;"></svg>
+                                        RESET
+                                    </button>
+                                    <button (click)="Back()" cButton class="me-1" color="secondary">
+                                        <svg cIcon name="cilArrowCircleLeft" style="margin-right: 5px;"></svg>
+                                        BACK
+                                    </button>
+                                </c-col>
+                            </c-row>
+                        </c-card-body>
+                    </c-col>
+                </c-row>
+
+            </form>
+            <!-- <c-row class="mb-3" style="margin-top: 20px;margin-bottom: 20px;">
+                <c-col [sm]="3">
+                    <input cFormControl type="file" #csvReader name="Upload File" id="txtFileUpload" (change)="uploadListener($event)"
+                           accept=".xlsx" />
+                  </c-col>    
+                  <c-col [sm]="4">
+                    <button cButton class="me-1" color="warning" type="reset" [disabled]="upload == false"
+                            (click)="UploadClick()">
+                            <svg cIcon name="cilFile" style="margin-right: 5px;"></svg>
+                        UPLOAD
+                    </button>
+                  </c-col>
+              </c-row> -->
+        </c-card-body>
+    </c-card>
+</c-col>

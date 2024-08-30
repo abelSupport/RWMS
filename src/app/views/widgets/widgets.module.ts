@@ -45,7 +45,8 @@ import { WidgetsEComponent } from './widgets-e/widgets-e.component';
   ],
   exports: [
     WidgetsBrandComponent,
-    WidgetsDropdownComponent
+    WidgetsDropdownComponent,
+    WidgetsComponent
   ]
 })
 export class WidgetsModule {

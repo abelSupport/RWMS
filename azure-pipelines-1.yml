@@ -1,5 +1,9 @@
 trigger:
+
+  branches:
+    include:
       - main
+
 
 pool:
   name: 'RWMS Agent pool'

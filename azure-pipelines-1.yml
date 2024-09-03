@@ -1,0 +1,25 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  name: 'RWMS Agent pool'
+
+steps:
+  
+
+  - script: |
+      npm install
+    displayName: 'Install Dependencies'
+
+  - script: |
+      ng build
+    displayName: 'Build Angular App'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'dist'
+      ArtifactName: 'dist'
+     
+
+  
